@@ -1,0 +1,1 @@
+print("Inventory is 50 or more so no need to order more widgets")

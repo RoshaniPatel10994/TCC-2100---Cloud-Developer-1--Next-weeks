@@ -1,0 +1,1 @@
+print("Inventory is less than 50, please order more widget")

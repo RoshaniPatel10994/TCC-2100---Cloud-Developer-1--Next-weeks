@@ -1,0 +1,45 @@
+{
+    "Comment": "Week 12 Homework Inventory Count",
+    "StartAt": "Choice",
+    "States": {
+        "Choice":{
+            "Comment": "Choice state",
+            "Type": "Choice",
+            "Choices":[
+                {
+                    "Variable": "$.inventory",
+                    "NumericGreaterThan": 50,
+                    "Next": "Do Not Order More Inventory"
+                },
+                {
+                    "Variable": "$.inventory",
+                    "NumericLessThan": 50,
+                    "Next": "Order More Inventory"
+                }
+            ],
+            "Default": "Fail"
+        },
+        "Order More Inventory":{
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters":{
+                "FunctionName":"order"
+            },
+            "Next": "SucceedState"
+        },
+        "Do Not Order More Inventory":{
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters":{
+                "FunctionName":"noorder"
+            },
+            "Next": "SucceedState"
+        },
+        "Fail":{
+            "Type": "Fail"
+        },
+        "SucceedState":{
+            "Type": "Succeed"
+        }
+    }
+}
